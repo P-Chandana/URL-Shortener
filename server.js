@@ -1,3 +1,4 @@
+//
 const express = require('express')
 const mongoose = require('mongoose')
 const ShortUrl = require('./models/shortUrl')
@@ -15,11 +16,13 @@ app.get('/', async (req, res) => {
   res.render('index', { shortUrls: shortUrls })
 })
 
+
 app.post('/shortUrls', async (req, res) => {
   await ShortUrl.create({ full: req.body.fullUrl })
 
   res.redirect('/')
 })
+
 
 app.get('/:shortUrl', async (req, res) => {
   const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
@@ -30,6 +33,7 @@ app.get('/:shortUrl', async (req, res) => {
 
   res.redirect(shortUrl.full)
 })
+
 
  const server = app.listen(process.env.PORT || 8080 , ()=>{
      console.log('server is up an running at ', server.address().port)
